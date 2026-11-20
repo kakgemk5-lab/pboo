@@ -1,26 +1,48 @@
 <?php
+class Produk
+{
 
-//panggil file propertconstant
-require('./PropertyConstant.php');
+    //property
+    public string $kode;
+    public string $nama;
+    public int $harga;
+    public int $stok;
 
-use Pbo\Marketplace\Produk;
+    //constant
+    public const PAJAK = 0.11;
 
+    public function __construct($kode, $nama, $harga, $stok)
+    {
+        $this->kode = $kode;
+        $this->nama = $nama;
+        $this->harga = $harga;
+        $this->stok = $stok;
+    }
+
+    public function pajak()
+    {
+        return self::PAJAK * 100; //11
+    }
+
+    public function total()
+    {
+        return $this->harga + ($this->harga * self::PAJAK);
+    }
+}
 //object
-$produk = new Produk();
+$produk = new Produk('P001', 'laptop', 10000000, 5);
+$produk->kode = 'P001';
+$produk->nama = 'laptop';
+$produk->harga = 10000000;
+$produk->stok = 5;
 
-$produk->setKode('P0001')
-    ->setNama('Laptop')
-    ->setHarga(10000000)
-    ->setStok(5);
-
-//hasil
-echo "Produk: " . $produk->getNama();
+echo "Produk: " . $produk->nama;
 echo "<br/>";
 
-echo "Harga:RP." . $produk->getHarga();
+echo "Harga: " . $produk->harga;
 echo "<br/>";
 
-echo "Stok: " . $produk->getStok();
+echo "Stok: " . $produk->stok;
 echo "<br/>";
 
 echo "Pajak : " . $produk->pajak() . "%";
